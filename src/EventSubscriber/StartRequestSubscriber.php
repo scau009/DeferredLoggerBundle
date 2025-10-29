@@ -12,9 +12,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class StartRequestSubscriber implements EventSubscriberInterface
 {
-    public function __construct(LoggerInterface $logger)
-    {
-        DeferredLoggerInstance::getInstance($logger);
+    public function __construct(
+        private DeferredLoggerInstance $deferredLoggerInstance
+    ) {
     }
 
     public static function getSubscribedEvents(): array

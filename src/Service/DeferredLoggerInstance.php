@@ -36,11 +36,19 @@ class DeferredLoggerInstance
     {
         if (self::$instance === null) {
             if ($logger === null) {
-                throw new \LogicException('Logger must be set');
+                throw new \LogicException('DeferredLogger not initialized. This typically happens in CLI commands. Call DeferredLoggerInstance::getInstance($logger) first or use the service container.');
             }
             self::$instance = new self($logger);
         }
         return self::$instance;
+    }
+
+    /**
+     * Check if instance is initialized
+     */
+    public static function isInitialized(): bool
+    {
+        return self::$instance !== null;
     }
 
     /**

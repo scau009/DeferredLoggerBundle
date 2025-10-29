@@ -46,6 +46,11 @@ class SQLLoggingStatement extends AbstractStatementMiddleware
 
     private function logQuery(?\Throwable $exception = null): void
     {
+        // Skip logging if DeferredLogger is not initialized (e.g., in CLI commands)
+        if (!\Barry\DeferredLoggerBundle\Service\DeferredLoggerInstance::isInitialized()) {
+            return;
+        }
+
         $executionTime = $this->startTime !== 0
             ? round((microtime(true) - $this->startTime) * 1000, 2)
             : 0;
@@ -61,10 +66,14 @@ class SQLLoggingStatement extends AbstractStatementMiddleware
             $context['error'] = $exception->getMessage();
         }
 
-        DeferredLogger::contextData(
-            $context,
-            $exception !== null ? 'SQL ERROR' : 'SQL EXECUTED'
-        );
+        try {
+            DeferredLogger::contextData(
+                $context,
+                $exception !== null ? 'SQL ERROR' : 'SQL EXECUTED'
+            );
+        } catch (\Throwable $e) {
+            // Silently fail if logger not available
+        }
     }
 
     private function formatSql(string $sql, array $params): string

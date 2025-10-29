@@ -4,6 +4,13 @@ services:
     autoconfigure: true
     public: false
 
+  # DeferredLoggerInstance - initialized early via compiler pass
+  Barry\DeferredLoggerBundle\Service\DeferredLoggerInstance:
+    factory: ['Barry\DeferredLoggerBundle\Service\DeferredLoggerInstance', 'getInstance']
+    arguments:
+      - '@logger'
+    public: false
+
   Barry\DeferredLoggerBundle\Service\DeferredLogger:
     public: true
 

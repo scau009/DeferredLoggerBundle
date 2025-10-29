@@ -56,6 +56,11 @@ class TraceContextMiddleware implements MiddlewareInterface
             return $envelope;
         }
 
+        // Skip if DeferredLogger not initialized (CLI commands without HTTP context)
+        if (!DeferredLoggerInstance::isInitialized()) {
+            return $envelope;
+        }
+
         try {
             $instance = DeferredLoggerInstance::getInstance();
             $traceContext = $instance->getTraceContext();
