@@ -1,0 +1,21 @@
+{
+  "name": "barry/deferred-logger-bundle",
+  "description": "Symfony bundle: deferred logging on top of Monolog",
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "authors": [
+    { "name": "Barry", "email": "barry@example.com" }
+  ],
+  "require": {
+    "php": "^8.0",
+    "symfony/framework-bundle": "^5.4|^6.0|^7.0",
+    "monolog/monolog": "^2.0|^3.0",
+    "symfony/uid": "^5.4|^6.0|^7.0"
+  },
+  "suggest": {
+    "symfony/messenger": "For async message trace propagation support"
+  },
+  "autoload": {
+    "psr-4": { "Barry\\DeferredLoggerBundle\\": "src/" }
+  }
+}

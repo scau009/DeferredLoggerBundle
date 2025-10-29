@@ -1,0 +1,38 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Barry\DeferredLoggerBundle\Service\DeferredLogger:
+    public: true
+
+  Barry\DeferredLoggerBundle\EventSubscriber\ExceptionSubscriber:
+    arguments:
+      $autoFlushOnException: '%barry_deferred_logger.auto_flush_on_exception%'
+    tags: ["kernel.event_subscriber"]
+
+  Barry\DeferredLoggerBundle\EventSubscriber\TerminateSubscriber:
+    arguments:
+      $autoFlushOnRequest: '%barry_deferred_logger.auto_flush_on_request%'
+      $injectTraceIdInResponse: '%barry_deferred_logger.inject_trace_id_in_response%'
+    tags: ["kernel.event_subscriber"]
+
+  Barry\DeferredLoggerBundle\EventSubscriber\StartRequestSubscriber:
+    tags: [ "kernel.event_subscriber" ]
+
+  # Doctrine DBAL Middleware for SQL logging (replaces deprecated SQLLogger)
+  Barry\DeferredLoggerBundle\Middleware\SQLLoggingMiddleware:
+    arguments:
+      $enableSqlLogging: '%barry_deferred_logger.enable_sql_logging%'
+    tags:
+      - { name: 'doctrine.middleware' }
+
+  # Messenger middleware for trace context propagation
+  Barry\DeferredLoggerBundle\Messenger\TraceContextMiddleware:
+    arguments:
+      $enabled: '%barry_deferred_logger.enable_messenger_trace%'
+    tags:
+      - { name: 'messenger.middleware', priority: 100 }
+
+# Optionally register the processor on monolog channel via service decoration or by user config
