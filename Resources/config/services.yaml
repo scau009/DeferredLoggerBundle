@@ -28,6 +28,9 @@ services:
   Barry\DeferredLoggerBundle\EventSubscriber\StartRequestSubscriber:
     tags: [ "kernel.event_subscriber" ]
 
+  Barry\DeferredLoggerBundle\EventSubscriber\ConsoleInitSubscriber:
+    tags: [ "kernel.event_subscriber" ]
+
   # Doctrine DBAL Middleware for SQL logging (replaces deprecated SQLLogger)
   Barry\DeferredLoggerBundle\Middleware\SQLLoggingMiddleware:
     arguments:
