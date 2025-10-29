@@ -1,10 +1,27 @@
 {
-  "name": "barry/deferred-logger-bundle",
-  "description": "Symfony bundle: deferred logging on top of Monolog",
+  "name": "scau009/deferred-logger-bundle",
+  "description": "Symfony bundle for deferred logging with distributed tracing support (W3C Trace Context, Jaeger, Zipkin compatible)",
   "type": "symfony-bundle",
   "license": "MIT",
+  "keywords": [
+    "symfony",
+    "logging",
+    "monolog",
+    "distributed-tracing",
+    "trace-context",
+    "w3c",
+    "jaeger",
+    "zipkin",
+    "observability",
+    "messenger",
+    "doctrine"
+  ],
+  "homepage": "https://github.com/scau009/DeferredLoggerBundle",
   "authors": [
-    { "name": "Barry", "email": "barry@example.com" }
+    {
+      "name": "Barry",
+      "email": "18819259245@163.com"
+    }
   ],
   "require": {
     "php": "^8.0",
@@ -13,9 +30,16 @@
     "symfony/uid": "^5.4|^6.0|^7.0"
   },
   "suggest": {
-    "symfony/messenger": "For async message trace propagation support"
+    "symfony/messenger": "For async message trace propagation support",
+    "doctrine/dbal": "For automatic SQL query logging"
   },
   "autoload": {
-    "psr-4": { "Barry\\DeferredLoggerBundle\\": "src/" }
+    "psr-4": {
+      "Barry\\DeferredLoggerBundle\\": "src/"
+    }
+  },
+  "support": {
+    "issues": "https://github.com/scau009/DeferredLoggerBundle/issues",
+    "source": "https://github.com/scau009/DeferredLoggerBundle"
   }
 }
